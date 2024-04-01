@@ -1,1 +1,1 @@
-# lit-element-todo-app 123
+# lit-element-todo-app
