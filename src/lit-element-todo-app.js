@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit';
 const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
 class LitElementTodoApp extends LitElement {
+  
   static properties = {
     header: { type: String },
   };
