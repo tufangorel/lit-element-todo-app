@@ -1,10 +1,33 @@
-import { LitElement, html } from 'lit'
+import { LitElement, html, css } from 'lit'
 
 class TodoList extends LitElement {
 
     static properties = {
         todos: {type:Array}
     }
+
+    static styles = css`
+
+        :host {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            color: blue;
+        }
+
+        ul {
+            list-style:none;
+            padding:0;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+        }
+  `;
 
     render(){
 
@@ -31,14 +54,14 @@ class TodoList extends LitElement {
 
     }
 
-    _changeTodoFinished(e,changedTodo){
+    _changeTodoFinished(e, changedTodo) {
         const eventDetails = { changedTodo, finished: e.target.checked };
-        this.dispatchEvent( new CustomEvent( 'change-todo-finished', { detail: eventDetails } ));
-    }
-
-    _removeTodo( item ){
-        this.dispatchEvent( new CustomEvent( 'remove-todo', { detail:item } ) );
-    }
+        this.dispatchEvent(new CustomEvent('change-todo-finished', { detail: eventDetails }));
+      }
+    
+      _removeTodo(item) {
+        this.dispatchEvent(new CustomEvent('remove-todo', { detail: item }));
+      }
 
 }
 

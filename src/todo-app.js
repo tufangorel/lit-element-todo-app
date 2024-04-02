@@ -10,19 +10,24 @@ class TodoApp extends LitElement {
   static styles = css`
 
     :host {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      font-size: calc(10px + 2vmin);
-      color: #1a2b42;
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
-      background-color: var(--lit-element-todo-app-background-color);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        color: blue;
     }
 
+    ul {
+        list-style:none;
+        padding:0;
+    }
+
+    button {
+        background-color: transparent;
+        border: none;
+    }
   `;
 
   constructor() {
@@ -38,29 +43,23 @@ class TodoApp extends LitElement {
   }
 
   render() {
-
-    const finishedCount = this.todos.filter( e => e.finished ).length;
+    const finishedCount = this.todos.filter(e => e.finished).length;
     const unfinishedCount = this.todos.length - finishedCount;
 
     return html`
-      <div>
-        <h1>${this.header}</h1>
-        <div>
+      <h1>Todo app</h1>
 
-          <input id="addTodoInput" placeholder="Name"/>
-          <button @click="${this._addTodo}">Add</button>
+      <input id="addTodoInput" placeholder="Name" />
+      <button @click=${this._addTodo}>Add</button>
 
-          <todo-list .todos=${this.todos}
-            @change-todo-finished="${this._changeTodoFinished}"
-            @remove-todo="${this._removeTodo}">
-          </todo-list>
+      <todo-list
+        .todos=${this.todos}
+        @change-todo-finished=${this._changeTodoFinished}
+        @remove-todo=${this._removeTodo}
+      ></todo-list>
 
-        </div>
-
-        <div>Total finished count: ${finishedCount}</div>
-        <div>Total unfinished count: ${unfinishedCount}</div>
-
-      </div>
+      <div>Total finished: ${finishedCount}</div>
+      <div>Total unfinished: ${unfinishedCount}</div>
 
     `;
   }
