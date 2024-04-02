@@ -9,23 +9,12 @@ class TodoList extends LitElement {
     static styles = css`
 
         :host {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            text-align: center;
             color: blue;
-        }
-
-        ul {
-            list-style:none;
-            padding:0;
         }
 
         button {
             background-color: transparent;
-            border: none;
         }
   `;
 
