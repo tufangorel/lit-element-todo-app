@@ -1,8 +1,5 @@
 import { LitElement, html, css } from 'lit';
-
-const author = 'open-wc';
-const homepage = 'https://open-wc.org/';
-const footerTemplate = html`<footer>Based on template from <a href="${homepage}">${author}</a></footer>`;
+import './todos-list';
 
 class TodoApp extends LitElement {
   
@@ -42,6 +39,9 @@ class TodoApp extends LitElement {
 
   render() {
 
+    const finishedCount = this.todos.filter( e => e.finished ).length;
+    const unfinishedCount = this.todos.length - finishedCount;
+
     return html`
       <div>
         <h1>${this.header}</h1>
@@ -49,22 +49,17 @@ class TodoApp extends LitElement {
 
           <input id="addTodoInput" placeholder="Name"/>
           <button @click="${this._addTodo}">Add</button>
-          <ol>
-            ${this.todos.map(
-              todo => html`
-                <li>
-                      <input type="checkbox" .checked=${todo.finished}
-                        @change=${ e => this._changeTodoFinished(e,todo) }  
-                      />
-                      ${todo.text} (${todo.finished ? 'Finished':'Unfinished'})
-                      <button @click=${ () => this._removeTodo(todo)}>X</button>
-                </li>
-              `,
-            )}
-          </ol>
+
+          <todo-list .todos=${this.todos}
+            @change-todo-finished="${this._changeTodoFinished}"
+            @remove-todo="${this._removeTodo}">
+          </todo-list>
+
         </div>
 
-        ${footerTemplate}
+        <div>Total finished count: ${finishedCount}</div>
+        <div>Total unfinished count: ${unfinishedCount}</div>
+
       </div>
 
     `;
@@ -80,22 +75,21 @@ class TodoApp extends LitElement {
       this.requestUpdate();
   }
 
-  _removeTodo(todo){
-    this.todos = this.todos.filter( e => e!= todo )
+  _removeTodo(e) {
+    this.todos = this.todos.filter(todo => todo !== e.detail);
   }
-
-  _changeTodoFinished(e,changedTodo) {
-
-    const finished = e.target.checked;
-    this.todos = this.todos.map( todo => { 
-
-        if( todo != changedTodo ) {
-          return todo;
-        }
-        return { ...changedTodo, finished }
-    } );
+  
+  _changeTodoFinished(e) {
+    const { changedTodo, finished } = e.detail;
+  
+    this.todos = this.todos.map((todo) => {
+      if (todo !== changedTodo) {
+        return todo;
+      }
+      return { ...changedTodo, finished };
+    });
   }
 
 }
 
-customElements.define('lit-element-todo-app', TodoApp);
+customElements.define('todo-app', TodoApp);
