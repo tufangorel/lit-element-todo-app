@@ -6,6 +6,10 @@ const footerTemplate = html`<footer>Based on template from <a href="${homepage}"
 
 class TodoApp extends LitElement {
   
+  static properties = {
+    todos: {type:Array}
+  };
+
   static styles = css`
 
     :host {
@@ -29,9 +33,9 @@ class TodoApp extends LitElement {
     this.header = 'Todo App';
 
     this.todos = [
-      { text:'Do A', finished:true},
-      { text:'Do B', finished:false},
-      { text:'Do C', finished:false}    
+      { text:'Todo Item A', finished:true},
+      { text:'Todo Item B', finished:false},
+      { text:'Todo Item C', finished:false}    
     ];
 
   }
@@ -48,7 +52,13 @@ class TodoApp extends LitElement {
           <ol>
             ${this.todos.map(
               todo => html`
-                <li>${todo.text} (${todo.finished ? 'Finished':'Unfinished'}) </li>
+                <li>
+                      <input type="checkbox" .checked=${todo.finished}
+                        @change=${ e => this._changeTodoFinished(e,todo) }  
+                      />
+                      ${todo.text} (${todo.finished ? 'Finished':'Unfinished'})
+                      <button @click=${ () => this._removeTodo(todo)}>X</button>
+                </li>
               `,
             )}
           </ol>
@@ -63,12 +73,29 @@ class TodoApp extends LitElement {
   _addTodo(){
 
       const input = this.shadowRoot.getElementById('addTodoInput');
-      const text = input.ariaValueMax;
+      const text = input.value;
       input.value = '';
 
-      this.todos.push( { text, finished:false } );
+      this.todos = [ ...this.todos, { text, finished:false } ];
       this.requestUpdate();
   }
+
+  _removeTodo(todo){
+    this.todos = this.todos.filter( e => e!= todo )
+  }
+
+  _changeTodoFinished(e,changedTodo) {
+
+    const finished = e.target.checked;
+    this.todos = this.todos.map( todo => { 
+
+        if( todo != changedTodo ) {
+          return todo;
+        }
+        return { ...changedTodo, finished }
+    } );
+  }
+
 }
 
 customElements.define('lit-element-todo-app', TodoApp);
