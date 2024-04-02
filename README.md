@@ -3,8 +3,7 @@
 This project includes a sample component using LitElement with JavaScript.
 
 This template is generated from the `lit-starter-js` package in [the main Lit
-repo](https://github.com/lit/lit). Issues and PRs for this template should be
-filed in that repo.
+repo](https://github.com/lit/lit).
 
 <img src="./assets/todo-app.PNG" alt="Todo App"/>
 
@@ -31,7 +30,7 @@ npm test
 
 ## Dev Server
 
-This sample uses modern-web.dev's [@web/dev-server](https://www.npmjs.com/package/@web/dev-server) for previewing the project without additional build steps. Web Dev Server handles resolving Node-style "bare" import specifiers, which aren't supported in browsers. It also automatically transpiles JavaScript and adds polyfills to support older browsers. See [modern-web.dev's Web Dev Server documentation](https://modern-web.dev/docs/dev-server/overview/) for more information.
+This sample uses modern-web.dev's [@web/dev-server](https://www.npmjs.com/package/@web/dev-server) for previewing the project without additional build steps. Web Dev Server handles resolving Node-style "bare" import specifiers, which aren't supported in browsers. It also automatically transpiles JavaScript and adds polyfills to support older browsers.
 
 To run the dev server and open the project in a new browser tab:
 
