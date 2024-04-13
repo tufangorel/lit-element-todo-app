@@ -17,7 +17,7 @@ npm i
 
 ## Testing
 
-This sample modern-web.dev's
+This sample uses modern-web.dev's
 [@web/test-runner](https://www.npmjs.com/package/@web/test-runner) for testing. See the
 [modern-web.dev testing documentation](https://modern-web.dev/docs/test-runner/overview) for
 more information.
